@@ -6,6 +6,7 @@ from typing import List, Optional
 class StaffRequest(BaseModel):
     """Request model for creating/updating staff."""
     name: str
+    email: Optional[str] = None
     schedule: Optional[str] = "{}"
 
 
@@ -13,6 +14,7 @@ class StaffResponse(BaseModel):
     """Response model for staff data."""
     id: str
     name: str
+    email: Optional[str]
     schedule: str
     is_active: bool
     created_at: datetime
