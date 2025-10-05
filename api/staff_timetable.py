@@ -33,6 +33,7 @@ async def list_staff(
         StaffResponse(
             id=staff.id,
             name=staff.name,
+            email=staff.email,
             schedule=staff.schedule,
             is_active=staff.is_active,
             created_at=staff.created_at,
@@ -55,6 +56,7 @@ async def create_staff(
 
     new_staff = Staff(
         name=staff_data.name,
+        email=staff_data.email,
         schedule=staff_data.schedule or "{}",
         is_active=True,
         created_at=datetime.now(timezone.utc),
@@ -68,6 +70,7 @@ async def create_staff(
     return StaffResponse(
         id=new_staff.id,
         name=new_staff.name,
+        email=new_staff.email,
         schedule=new_staff.schedule,
         is_active=new_staff.is_active,
         created_at=new_staff.created_at,
@@ -94,6 +97,7 @@ async def get_staff(
     return StaffResponse(
         id=staff.id,
         name=staff.name,
+        email=staff.email,
         schedule=staff.schedule,
         is_active=staff.is_active,
         created_at=staff.created_at,
@@ -120,6 +124,7 @@ async def update_staff(
 
     # Update staff data
     staff.name = staff_data.name
+    staff.email = staff_data.email
     staff.schedule = staff_data.schedule or "{}"
     staff.updated_at = datetime.now(timezone.utc)
 
@@ -130,6 +135,7 @@ async def update_staff(
     return StaffResponse(
         id=staff.id,
         name=staff.name,
+        email=staff.email,
         schedule=staff.schedule,
         is_active=staff.is_active,
         created_at=staff.created_at,
