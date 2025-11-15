@@ -14,18 +14,14 @@ router = APIRouter(prefix="/staff", tags=["staff_timetable"])
 
 @router.get("/", response_model=StaffListResponse)
 async def list_staff(
-    is_active: bool = None,
+    is_active: bool = True,
     token: Token = Depends(get_auth_token),
     db_session: Session = Depends(get_session)
 ):
-    """List all staff members. Optionally filter by active status."""
+    """List all staff members. Defaults to active staff only."""
     await require_user_or_agent(token, db_session)
 
-    statement = select(Staff).order_by(Staff.name)
-
-    # Apply active filter if provided
-    if is_active is not None:
-        statement = statement.where(Staff.is_active == is_active)
+    statement = select(Staff).where(Staff.is_active == is_active).order_by(Staff.name)
 
     staff_members = db_session.exec(statement).all()
 
